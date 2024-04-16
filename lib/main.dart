@@ -1,3 +1,5 @@
+import 'package:finance_mobile/screens/home_screen.dart';
+import 'package:finance_mobile/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,6 +16,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
+    );
   }
 }
