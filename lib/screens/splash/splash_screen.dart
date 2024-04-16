@@ -1,4 +1,4 @@
-import 'package:finance_mobile/screens/home_screen.dart';
+import 'package:finance_mobile/screens/start/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const StartScreen(),
         ),
       );
     });
@@ -55,7 +55,6 @@ class _SplashScreenState extends State<SplashScreen>
             const Text(
               'finance',
               style: TextStyle(
-                  fontFamily: 'Montserrat',
                   fontSize: 36.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),

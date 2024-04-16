@@ -1,4 +1,4 @@
-import 'package:finance_mobile/screens/splash_screen.dart';
+import 'package:finance_mobile/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,9 +15,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(fontFamily: 'Montserrat'),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
