@@ -1,13 +1,12 @@
 name: finance_mobile
 description: "A new Flutter project."
 
-publish_to: 'none'
-
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: ">=3.2.6 <4.0.0"
 
 dependencies:
   flutter:
@@ -21,15 +20,15 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
-
 flutter:
-
   uses-material-design: true
 
   assets:
-   - assets/images/icon.png
+    - lib/assets/images/icon.png
   fonts:
-  - family: Montserrat
-    fonts:
-      - asset: assets/fonts/Montserrat-VariableFont_wght.ttf
-        weight: 500
+    - family: Montserrat
+      fonts:
+        - asset: lib/assets/fonts/Montserrat-Regular.ttf
+          weight: 400
+        - asset: lib/assets/fonts/Montserrat-Bold.ttf
+          weight: 700
