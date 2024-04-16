@@ -1,3 +1,4 @@
+import 'package:finance_mobile/common/constants/app_colors.dart';
 import 'package:finance_mobile/screens/start/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen>
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF227E74), Color(0xFF3CB6A9)],
+            colors: AppColors.greenGradient,
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -57,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen>
               style: TextStyle(
                   fontSize: 36.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                  color: AppColors.white),
             )
           ],
         ),
