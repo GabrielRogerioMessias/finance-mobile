@@ -1,6 +1,7 @@
 import 'package:finance_mobile/common/constants/app_colors.dart';
-import 'package:finance_mobile/screens/start/start_screen.dart';
+import 'package:finance_mobile/common/constants/text_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:finance_mobile/screens/sign_in/start_screen.dart';
 import 'package:flutter/services.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
         height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: AppColors.greenGradient,
+            colors: AppColors.kGreenGradient,
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -49,16 +50,13 @@ class _SplashScreenState extends State<SplashScreen>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('lib/assets/images/icon.png'),
+            Image.asset('lib/assets/logos/finance.png'),
             const SizedBox(
               width: 10.0,
             ),
             const Text(
               'finance',
-              style: TextStyle(
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.white),
+              style: kTextIconLabel,
             )
           ],
         ),
