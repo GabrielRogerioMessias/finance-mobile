@@ -14,6 +14,9 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.7.0
+  provider: ^6.0.1
+  sqflite: ^2.3.3
+  path_provider: ^2.1.3
 
 dev_dependencies:
   flutter_test:
@@ -32,14 +35,14 @@ flutter:
   uses-material-design: true
 
   assets:
-    - lib/assets/logos/finance.png
-    - lib/assets/logos/facebook.jpg
-    - lib/assets/logos/google.jpg
+    - assets/logos/finance.png
+    - assets/logos/facebook.jpg
+    - assets/logos/google.jpg
   fonts:
     - family: Montserrat
       fonts:
-        - asset: lib/assets/fonts/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat-Regular.ttf
           weight: 400
-        - asset: lib/assets/fonts/Montserrat-Bold.ttf
+        - asset: assets/fonts/Montserrat-Bold.ttf
           weight: 700
 

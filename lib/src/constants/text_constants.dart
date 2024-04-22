@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:finance_mobile/common/constants/app_colors.dart';
+import 'package:finance_mobile/src/constants/app_colors.dart';
 
 const kTextLabel = TextStyle(
     fontFamily: 'Montserrat',

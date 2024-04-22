@@ -1,11 +1,12 @@
-import 'package:finance_mobile/common/constants/app_colors.dart';
-import 'package:finance_mobile/common/constants/text_constants.dart';
+import 'package:finance_mobile/src/constants/app_colors.dart';
+import 'package:finance_mobile/src/constants/text_constants.dart';
+import 'package:finance_mobile/src/features/authentication/screens/Login/login.dart';
 import 'package:flutter/material.dart';
-import 'package:finance_mobile/screens/sign_in/start_screen.dart';
 import 'package:flutter/services.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+
+  static const String id = 'splash_screen';
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => const StartScreen(),
+          builder: (_) =>  LoginScreen(),
         ),
       );
     });

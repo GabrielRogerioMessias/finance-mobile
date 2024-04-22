@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:finance_mobile/common/constants/text_constants.dart';
+import 'package:finance_mobile/src/constants/text_constants.dart';
 
 class RememberMe extends StatefulWidget {
 
