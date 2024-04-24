@@ -1,8 +1,8 @@
 import 'package:finance_mobile/src/constants/text_constants.dart';
 import 'package:flutter/material.dart';
 
-class bottom extends StatelessWidget {
-  const bottom({
+class BottomRegister extends StatelessWidget {
+  const BottomRegister({
     super.key,
   });
 
@@ -12,11 +12,11 @@ class bottom extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            '- OR -',
+            '- OU -',
             style: kTextLabel,
           ),
           Text(
-            'SignUp with',
+            'Registrar com',
             style: kTextLabel,
           ),
           SizedBox(height: 10.0),
@@ -24,7 +24,7 @@ class bottom extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () => print('Login with facebook'),
+                onTap: () => print('Register with facebook'),
                 child: Container(
                   height: 50.0,
                   width: 50.0,
@@ -49,7 +49,7 @@ class bottom extends StatelessWidget {
                 width: 30.0,
               ),
               GestureDetector(
-                onTap: () => print('Login with google'),
+                onTap: () => print('Register with google'),
                 child: Container(
                   height: 50.0,
                   width: 50.0,
@@ -91,7 +91,7 @@ class bottom extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 child: Text(
-                  'Sign In',
+                  'Logar',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 14.0,

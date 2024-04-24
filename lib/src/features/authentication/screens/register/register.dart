@@ -1,7 +1,8 @@
 import 'package:finance_mobile/src/constants/app_colors.dart';
-import 'package:finance_mobile/src/features/authentication/screens/Login/widgets/bottom.dart';
+import 'package:finance_mobile/src/features/authentication/models/user_model.dart';
 import 'package:finance_mobile/src/features/authentication/screens/register/buttons/register_button.dart';
-import 'package:finance_mobile/src/constants/text_constants.dart';
+import 'package:finance_mobile/src/features/authentication/screens/register/widgets/bottom.dart';
+import 'package:finance_mobile/src/features/authentication/services/database_helper.dart';
 import 'package:finance_mobile/src/features/authentication/widgets/header.dart';
 import 'package:finance_mobile/src/features/authentication/widgets/title_form.dart';
 import 'package:finance_mobile/src/features/authentication/widgets/input_field.dart';
@@ -15,12 +16,61 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
+
+  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
+  final RegExp passwordRegex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
+
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool _autoValidate = false;
+
+
+  void register() async {
+    if (!_formKey.currentState!.validate()) {
+      setState(() {
+        _autoValidate = true;
+      });
+      return;
+    }
+    if (passwordController.text != confirmController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('As senhas não são iguais'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    User user = User(
+        name: nameController.text,
+        email: emailController.text,
+        password: passwordController.text);
+
+    int result = await DatabaseHelper.addUser(user);
+    if (result != 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Registro realizado com sucesso'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      await Future.delayed(Duration(seconds: 2));
+      Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text('Erro ao realizar o registro'),
+            behavior: SnackBarBehavior.floating),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +94,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 30.0,
                   ),
                   Form(
+                    key: _formKey,
+                    autovalidateMode: _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
                     child: Column(
                       children: [
-                        TitleForm(titleText: 'Sign Up'),
+                        TitleForm(titleText: 'Registrar'),
                         SizedBox(
                           height: 20.0,
                         ),
                         InputField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor, insira seu nome completo';
+                              }
+                              return'';
+                            },
                             controller: nameController,
                             icon: Icons.person,
-                            hintText: 'nome completo'),
+                            hintText: 'nome completo',
+                        ),
                         SizedBox(
-                          height: 15.0,
+                          height: 10.0,
                         ),
                         InputField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor, insira seu email';
+                              } else if (!emailRegex.hasMatch(value)) {
+                                return 'Por favor, insira um email válido';
+                              }
+                              return'';
+                            },
                             controller: emailController,
                             icon: Icons.email,
                             hintText: 'email'),
@@ -65,6 +132,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 15.0,
                         ),
                         InputField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira sua senha';
+                            }
+                            return'';
+                          },
                           controller: passwordController,
                           icon: Icons.lock,
                           hintText: 'senha',
@@ -87,6 +160,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 15.0,
                         ),
                         InputField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira sua senha';
+                            } else if (passwordController.text !=
+                                confirmController.text) {
+                              return 'As senhas não se condizem';
+                            }
+                            return'';
+                          },
                           controller: confirmController,
                           icon: Icons.lock,
                           hintText: 'confirmar senha',
@@ -100,7 +182,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             onPressed: () {
                               setState(() {
-                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                                _obscureConfirmPassword =
+                                    !_obscureConfirmPassword;
                               });
                             },
                           ),
@@ -108,11 +191,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(
                           height: 10.0,
                         ),
-                        RegisterButton(),
+                        RegisterButton(onRegister: register),
                       ],
                     ),
                   ),
-                  bottom(),
+                  BottomRegister(),
                 ],
               ),
             ),
@@ -122,4 +205,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
-

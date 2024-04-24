@@ -1,10 +1,13 @@
+import 'package:finance_mobile/src/features/authentication/models/user_model.dart';
 import 'package:finance_mobile/src/features/authentication/screens/Login/buttons/forget_password.dart';
 import 'package:finance_mobile/src/features/authentication/screens/Login/buttons/login_button.dart';
 import 'package:finance_mobile/src/features/authentication/screens/Login/buttons/remember_me.dart';
+import 'package:finance_mobile/src/features/authentication/services/database_helper.dart';
 import 'package:finance_mobile/src/features/authentication/widgets/title_form.dart';
 import 'package:finance_mobile/src/features/authentication/screens/Login/widgets/bottom.dart';
 import 'package:finance_mobile/src/features/authentication/widgets/header.dart';
 import 'package:finance_mobile/src/features/authentication/widgets/input_field.dart';
+import 'package:finance_mobile/src/features/finance/finance_home/finance_home.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_mobile/src/constants/app_colors.dart';
 
@@ -18,7 +21,23 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   bool _obscureText = true;
+
+  void login() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    User? user = await DatabaseHelper.getUserByEmail(email);
+
+    if (user != null && user.password == password) {
+      Navigator.pushNamed(context, HomePage.id);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Email ou senha incorretos')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Form(
                     child: Column(
                       children: [
-                        TitleForm(titleText: 'Sing In'),
+                        TitleForm(titleText: 'Login'),
                         SizedBox(
                           height: 20.0,
                         ),
@@ -73,17 +92,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               });
                             },
                           ),
+
                         ),
                         SizedBox(
                           height: 10.0,
                         ),
                         ForgetPassword(),
                         RememberMe(),
-                        LoginButton(),
+                        LoginButton(onLogin: login),
                       ],
                     ),
                   ),
-                  bottom(),
+                  BottomLogin(),
                 ],
               ),
             ),
@@ -93,4 +113,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

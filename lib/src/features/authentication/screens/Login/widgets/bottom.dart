@@ -2,8 +2,8 @@ import 'package:finance_mobile/src/constants/text_constants.dart';
 import 'package:finance_mobile/src/features/authentication/screens/register/register.dart';
 import 'package:flutter/material.dart';
 
-class bottom extends StatelessWidget {
-  const bottom({
+class BottomLogin extends StatelessWidget {
+  const BottomLogin({
     super.key,
   });
 
@@ -13,11 +13,11 @@ class bottom extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            '- OR -',
+            '- OU -',
             style: kTextLabel,
           ),
           Text(
-            'Sign In',
+            'Login com',
             style: kTextLabel,
           ),
           SizedBox(height: 10.0),
@@ -95,7 +95,7 @@ class bottom extends StatelessWidget {
                   Navigator.pushNamed(context, RegisterScreen.id);
                 },
                 child: Text(
-                  'Sign Up',
+                  'Registrar',
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 14.0,

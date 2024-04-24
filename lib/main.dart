@@ -1,5 +1,6 @@
 import 'package:finance_mobile/src/features/authentication/screens/Login/login.dart';
 import 'package:finance_mobile/src/features/authentication/screens/register/register.dart';
+import 'package:finance_mobile/src/features/authentication/screens/resetPassword/reset_password.dart';
 import 'package:finance_mobile/src/features/authentication/screens/splash/splash_screen.dart';
 import 'package:finance_mobile/src/features/finance/finance_home/finance_home.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class _MyAppState extends State<MyApp> {
         LoginScreen.id : (context) => LoginScreen(),
         RegisterScreen.id : (context) => RegisterScreen(),
         HomePage.id : (context) => HomePage(),
+        ResetPasswordScreen.id : (context) => ResetPasswordScreen(),
       },
       );
   }

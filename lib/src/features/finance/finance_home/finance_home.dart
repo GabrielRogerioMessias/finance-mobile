@@ -7,7 +7,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('Login feito com sucesso'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Login feito com sucesso'),
+        ],
+      ),
+
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:finance_mobile/src/constants/text_constants.dart';
+import 'package:finance_mobile/src/features/authentication/screens/resetPassword/reset_password.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPassword extends StatelessWidget {
@@ -10,7 +11,9 @@ class ForgetPassword extends StatelessWidget {
       alignment: Alignment.topRight,
       child: GestureDetector(
         child: Text('Esqueceu sua senha?', style: kTextLabel,),
-        onTap: () => print('Esqueceu senha')
+        onTap: () {
+          Navigator.pushNamed(context, ResetPasswordScreen.id);
+        }
       ),
     );
   }
