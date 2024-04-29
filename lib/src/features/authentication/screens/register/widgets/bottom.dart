@@ -40,7 +40,7 @@ class BottomRegister extends StatelessWidget {
                     ],
                     image: DecorationImage(
                       image: AssetImage(
-                          'lib/assets/logos/facebook.jpg'),
+                          'assets/logos/facebook.jpg'),
                     ),
                   ),
                 ),
@@ -65,7 +65,7 @@ class BottomRegister extends StatelessWidget {
                     ],
                     image: DecorationImage(
                       image: AssetImage(
-                          'lib/assets/logos/google.jpg'),
+                          'assets/logos/google.jpg'),
                     ),
                   ),
                 ),

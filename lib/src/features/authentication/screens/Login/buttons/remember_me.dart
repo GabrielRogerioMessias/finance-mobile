@@ -21,9 +21,12 @@ class _RememberMeState extends State<RememberMe> {
 
   Future<void> _loadRememberMePreference() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isChecked = prefs.getBool('rememberMe') ?? false;
-    });
+    bool rememberMe = prefs.getBool('rememberMe') ?? false;
+    String? userEmail = prefs.getString('userEmail');
+
+    if (rememberMe && userEmail != null) {
+      return;
+    }
   }
 
   Future<void> _saveRememberMePreference(bool value) async {

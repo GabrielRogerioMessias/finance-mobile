@@ -8,27 +8,26 @@ const kTextLabel = TextStyle(
     color: Colors.white);
 
 const kTextIconLabel = TextStyle(
-    fontSize: 36.0,
-    fontWeight: FontWeight.bold,
-    color: AppColors.white
-);
+    fontSize: 36.0, fontWeight: FontWeight.bold, color: AppColors.white);
 
 const kTitleTextStyle = TextStyle(
   color: Colors.white,
   fontFamily: 'Montserrat',
-  fontSize: 28.0,
+  fontSize: 40.0,
   fontWeight: FontWeight.bold,
 );
 
 const kHintTextStyle = TextStyle(
     color: Colors.white54,
     fontFamily: 'Montserrat',
-    fontWeight: FontWeight.bold
-);
+    fontWeight: FontWeight.bold);
 
 const kLogoText = TextStyle(
-  fontFamily: 'Montserrat',
-  fontSize: 36.0,
-  fontWeight: FontWeight.bold,
-  color: Colors.white
-);
+    fontFamily: 'Montserrat',
+    fontSize: 36.0,
+    fontWeight: FontWeight.bold,
+    color: Colors.white);
+
+//Novas constantes de texto
+
+const kTitleInputText = TextStyle(color: Colors.white, fontSize: 20.0);

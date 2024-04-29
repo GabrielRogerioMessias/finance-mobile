@@ -1,11 +1,10 @@
 import 'package:finance_mobile/src/constants/app_colors.dart';
-import 'package:finance_mobile/src/constants/text_constants.dart';
-import 'package:finance_mobile/src/features/authentication/screens/Login/login.dart';
+import 'package:finance_mobile/src/features/authentication/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SplashScreen extends StatefulWidget {
 
+class SplashScreen extends StatefulWidget {
   static const String id = 'splash_screen';
 
   @override
@@ -22,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) =>  LoginScreen(),
+          builder: (_) =>  HomeScreen(),
         ),
       );
     });
@@ -38,29 +37,18 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: AppColors.kGreenGradient,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('lib/assets/logos/finance.png'),
-            const SizedBox(
-              width: 10.0,
+      body: Stack(
+        children: [
+          Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: kBoxDecorationGradient),
+          Center(
+            child: Image(
+              image: AssetImage('assets/logos/finance.png'),
             ),
-            const Text(
-              'finance',
-              style: kTextIconLabel,
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -82,7 +82,16 @@ class DatabaseHelper {
     return null;
   }
 
+  static Future<bool> emailJaCadastrado(String email) async {
+    final db = await _getDB();
+    List<Map<String, dynamic>> result = await db.query(
+      'User',
+      where: 'email = ?',
+      whereArgs: [email],
+    );
 
+    return result.isNotEmpty;
+  }
 
 
   //add
