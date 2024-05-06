@@ -1,5 +1,6 @@
 import 'package:finance_mobile/src/constants/app_colors.dart';
 import 'package:finance_mobile/src/features/authentication/screens/home.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -43,9 +44,10 @@ class _SplashScreenState extends State<SplashScreen>
               width: double.infinity,
               height: double.infinity,
               decoration: kBoxDecorationGradient),
-          Center(
+          Container(
+            alignment: Alignment.center,
             child: Image(
-              image: AssetImage('assets/logos/finance.png'),
+              image: AssetImage('assets/logos/logo.png'),
             ),
           ),
         ],

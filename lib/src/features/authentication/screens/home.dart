@@ -1,7 +1,6 @@
 import 'package:finance_mobile/src/constants/text_constants.dart';
 import 'package:finance_mobile/src/features/authentication/screens/Login/login.dart';
 import 'package:finance_mobile/src/features/authentication/screens/register/register.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -19,8 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           Container(
-            height: double.infinity,
-            width: double.infinity,
             color: Color(0xFF373737),
           ),
           Column(
@@ -43,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         children: [
                           Image(
-                            image: AssetImage('assets/logos/logo.png'),
+                            image: AssetImage('assets/logos/white-logo.png'),
                           ),
                           SizedBox(
                             width: 10.0,

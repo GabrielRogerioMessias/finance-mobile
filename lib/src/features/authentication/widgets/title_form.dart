@@ -1,22 +1,19 @@
-import 'package:finance_mobile/src/constants/text_constants.dart';
 import 'package:flutter/material.dart';
 
-class TitleForm extends StatelessWidget {
-  const TitleForm({
+class TitleInput extends StatelessWidget {
+  const TitleInput({
     super.key,
-    required this.titleText,
+    required this.text,
   });
 
-  final String titleText;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topLeft,
-      child: Text(
-        titleText,
-        style: kTitleTextStyle,
-      ),
+    return Text(
+      text,
+      style:
+      TextStyle(color: Colors.white, fontSize: 18.0),
     );
   }
 }

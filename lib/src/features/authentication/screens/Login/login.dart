@@ -1,7 +1,12 @@
 import 'package:finance_mobile/src/features/authentication/screens/Login/widgets/bottom.dart';
-import 'package:finance_mobile/src/features/authentication/widgets/input.dart';
-import 'package:finance_mobile/src/features/authentication/widgets/title.dart';
+import 'package:finance_mobile/src/features/authentication/services/database_helper.dart';
+import 'package:finance_mobile/src/features/authentication/widgets/header.dart';
+import 'package:finance_mobile/src/features/authentication/widgets/input_field.dart';
+import 'package:finance_mobile/src/features/authentication/widgets/title_form.dart';
+import 'package:finance_mobile/src/features/finance/screens/finance_home/finance_home.dart';
+import 'package:finance_mobile/src/features/provider/user_id_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -13,10 +18,37 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  //Controllers
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  //password visible
   bool _obscurePassword = true;
 
+  //Metodo de Login
+  void _handleLogin() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    final dbHelper = DatabaseHelper.instance;
+    bool isAuthenticated = await dbHelper.authenticateUser(email, password);
+
+    if (isAuthenticated) {
+      Map<String, dynamic>? userInfo = await dbHelper.retrieveUserIdAndName(email);
+      if (userInfo!= null) {
+        Provider.of<UserIdProvider>(context, listen: false).setUserIdAndName(userInfo['user_id'], userInfo['name']);
+        Navigator.pushNamed(context, FinanceScreen.id, arguments: email);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro ao recuperar o ID do usuário')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Email ou senha incorretos')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,52 +66,54 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Column(
             children: [
-              Container(
-                alignment: Alignment.topLeft,
-                padding: EdgeInsets.only(left: 14.0),
-                child: Text(
-                  'Faça seu login',
-                  style: TextStyle(fontSize: 25.0, color: Colors.white),
-                ),
+              Header(
+                title: 'Faça seu login',
               ),
               SizedBox(
                 height: 20.0,
               ),
-              Form(
-                child: Column(
-                  children: [
-                    TitleInput(TitleInputText: 'Email'),
-                    InputTextField(iconData: Icons.email, hintText: 'email', controller: emailController),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    TitleInput(TitleInputText: 'Senha'),
-                    InputTextField(
-                      iconData: Icons.lock,
-                      hintText: 'Senha',
-                      controller: passwordController,
-                      obscureText: _obscurePassword,
-                      visible: IconButton(
-                        icon: Icon(
-                          _obscurePassword
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                          color: Color(0xFF227E74),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
-                        },
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 14.0),
+                child: Form(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TitleInput(text: 'EMAIL'),
+                      InputField(
+                          controller: emailController,
+                          iconData: Icons.email,
+                          hintText: 'email'),
+                      SizedBox(
+                        height: 20.0,
                       ),
-                    ),
-                  ],
+                      TitleInput(text: 'SENHA'),
+                      InputField(
+                        controller: passwordController,
+                        iconData: Icons.lock,
+                        hintText: 'senha',
+                        obscureText: _obscurePassword,
+                        visible: IconButton(
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Color(0xFF227E74),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
                 height: 350,
               ),
-              Bottom(),
+              BottomLogin(login: _handleLogin,),
             ],
           )
         ],
@@ -87,4 +121,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

@@ -40,7 +40,10 @@ flutter:
   assets:
     - assets/logos/finance.png
     - assets/logos/logo.png
+    - assets/logos/white-logo.png
     - assets/images/home_image.png
+    - assets/icons/Initiate Money Transfer.png
+    - assets/icons/Request Money.png
   fonts:
     - family: Montserrat
       fonts:

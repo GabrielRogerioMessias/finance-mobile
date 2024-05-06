@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ResumoScreen extends StatefulWidget {
+  static const String id = 'resumo_screen';
   const ResumoScreen({super.key});
 
   @override
@@ -10,6 +11,6 @@ class ResumoScreen extends StatefulWidget {
 class _ResumoScreenState extends State<ResumoScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold();
   }
 }

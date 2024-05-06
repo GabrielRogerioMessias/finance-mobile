@@ -1,6 +1,9 @@
-import 'package:finance_mobile/src/features/authentication/screens/register/widgets/header.dart';
-import 'package:finance_mobile/src/features/authentication/widgets/input.dart';
-import 'package:finance_mobile/src/features/authentication/widgets/title.dart';
+import 'package:finance_mobile/src/features/authentication/screens/Login/login.dart';
+import 'package:finance_mobile/src/features/authentication/screens/register/widgets/bottom.dart';
+import 'package:finance_mobile/src/features/authentication/services/database_helper.dart';
+import 'package:finance_mobile/src/features/authentication/widgets/header.dart';
+import 'package:finance_mobile/src/features/authentication/widgets/input_field.dart';
+import 'package:finance_mobile/src/features/authentication/widgets/title_form.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -23,6 +26,53 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
+  //metodo de registro
+  void _handleRegister() async {
+    String name = nameController.text;
+    String email = emailController.text;
+    String password = passwordController.text;
+    String confirmPassword = confirmController.text;
+
+
+    // verificar se todos os campos obrigatórios de registro estão preenchidos
+    if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Por favor, preencha todos os campos')));
+      return;
+    }
+
+    // verificar se as senhas se correspondem
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('As senhas não correspondem.')),
+      );
+      return;
+    }
+
+    // verificar se email ja esta em uso
+    final dbHelper = DatabaseHelper.instance;
+    bool isEmailInUse = await dbHelper.isEmailAlreadyInUse(email);
+    if (isEmailInUse) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Este email ja esta em uso.')),
+      );
+      return;
+    }
+
+    //Chamada do método
+    int result = await dbHelper.registerUser(name, email, password);
+
+    if (result > 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Usuario registrado com sucesso.')),
+      );
+      Navigator.pushNamed(context, LoginScreen.id);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao registrar o usuário.')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,72 +91,126 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: SingleChildScrollView(
               physics: AlwaysScrollableScrollPhysics(),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Header(),
+                  Header(title: 'Crie sua conta'),
                   SizedBox(height: 20.0),
-                  TitleInput(TitleInputText: 'Email'),
-                  InputTextField(
-                      iconData: Icons.email,
-                      hintText: 'email',
-                      controller: emailController),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  TitleInput(TitleInputText: 'Nome'),
-                  InputTextField(
-                      iconData: Icons.person,
-                      hintText: 'nome',
-                      controller: nameController),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  TitleInput(TitleInputText: 'Senha'),
-                  InputTextField(
-                    iconData: Icons.lock,
-                    hintText: 'Senha',
-                    controller: passwordController,
-                    obscureText: _obscurePassword,
-                    visible: IconButton(
-                      icon: Icon(
-                        _obscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        color: Color(0xFF227E74),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 14.0),
+                    child: Form(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TitleInput(text: 'EMAIL'),
+                          InputField(
+                            controller: emailController,
+                            iconData: Icons.email,
+                            hintText: 'email',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor, insira um email';
+                              }
+                              final RegExp emailRegex = RegExp(
+                                  r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
+                              if (!emailRegex.hasMatch(value)) {
+                                return 'Por favor, insira um email válido';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 12.0,
+                          ),
+                          TitleInput(text: 'NOME'),
+                          InputField(
+                              controller: nameController,
+                              iconData: Icons.person,
+                              hintText: 'nome'),
+                          SizedBox(
+                            height: 12.0,
+                          ),
+                          TitleInput(
+                            text: 'SENHA',
+                          ),
+                          InputField(
+                            controller: passwordController,
+                            iconData: Icons.lock,
+                            hintText: 'Senha',
+                            obscureText: _obscurePassword,
+                            visible: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Color(0xFF227E74),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscurePassword = !_obscurePassword;
+                                });
+                              },
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor, insira uma senha';
+                              }
+                              if (value.length < 7) {
+                                return 'A senha deve ter pelo menos 7 caracteres';
+                              }
+                              if (!value.contains(RegExp(r'[A-Z]'))) {
+                                return 'A senha deve conter pelo menos uma letra maiúscula';
+                              }
+                              if (!value.contains(RegExp(r'[0-9]'))) {
+                                return 'A senha deve conter pelo menos um número.';
+                              }
+                              if (!value.contains(
+                                  RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                                return 'A senha deve conter pelo menos um caractere especial.';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 12.0,
+                          ),
+                          TitleInput(text: 'CONFIRMAR SENHA'),
+                          InputField(
+                            controller: confirmController,
+                            iconData: Icons.lock,
+                            hintText: 'Senha',
+                            obscureText: _obscureConfirmPassword,
+                            visible: IconButton(
+                              icon: Icon(
+                                _obscureConfirmPassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Color(0xFF227E74),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureConfirmPassword =
+                                  !_obscureConfirmPassword;
+                                });
+                              },
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor, confirme sua senha.';
+                              }
+                              if (value != passwordController.text) {
+                                return 'As senhas não correspondem';
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
                     ),
                   ),
-                  SizedBox(
-                    height: 20.0,
+                  SizedBox(height: 150.0),
+                  BottomRegister(
+                    register: _handleRegister,
                   ),
-                  TitleInput(TitleInputText: 'Confirmar Senha'),
-                  InputTextField(
-                    iconData: Icons.lock,
-                    hintText: 'Senha',
-                    controller: confirmController,
-                    obscureText: _obscureConfirmPassword,
-                    visible: IconButton(
-                      icon: Icon(
-                        _obscureConfirmPassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        color: Color(0xFF227E74),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscureConfirmPassword = !_obscureConfirmPassword;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 120,
-                  ),
-                  Bottom(),
                 ],
               ),
             ),
@@ -116,59 +220,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
-
-class Bottom extends StatelessWidget {
-  const Bottom({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Ao prosseguir, aceito os ',
-                style: TextStyle(color: Colors.white),
-              ),
-              GestureDetector(
-                onTap: () => print('Termos de privacidade'),
-                child: Text(
-                  'termos de privacidade',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Color(0xFF3CB6A9),
-                    decoration: TextDecoration.underline,
-                    decorationColor: Color(0xFF3CB6A9),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          ElevatedButton(
-            child: Text(
-              'Criar Conta',
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () {
-              print('Cadastro realizado!');
-              Navigator.pop(context);
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                Color(0xFF3CB6A9),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-

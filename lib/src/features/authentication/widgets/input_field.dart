@@ -1,48 +1,47 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class InputField extends StatelessWidget {
-  final TextEditingController controller;
-  final IconData icon;
-  final String hintText;
-  final Widget? visible;
-  final bool obscureText;
-  final String Function(String?)? validator;
-
   const InputField({
-    Key? key,
+    super.key,
     required this.controller,
-    required this.icon,
+    this.iconData,
     required this.hintText,
     this.visible,
     this.obscureText = false,
     this.validator,
-  }) : super(key: key);
+  });
+
+  final TextEditingController controller;
+  final IconData? iconData;
+  final String hintText;
+  final Widget? visible;
+  final bool obscureText;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: validator,
       controller: controller,
       obscureText: obscureText,
-      style: TextStyle(color: Colors.white),
+      validator: validator,
       decoration: InputDecoration(
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: BorderSide(color: Colors.black)),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: Colors.white, width: 2.0),
+          borderRadius: BorderRadius.circular(5.0),
+          borderSide: BorderSide(color: Colors.black),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: Colors.grey),
-        ),
+        filled: true,
+        fillColor: Colors.white,
         prefixIcon: Icon(
-          icon,
-          color: Colors.white,
+          iconData,
+          color: Color(0xFF227E74),
         ),
         suffixIcon: visible,
-        labelText: hintText,
-        labelStyle: TextStyle(color: Colors.white),
+        hintText: hintText,
       ),
+      cursorColor: Colors.black,
     );
   }
 }
