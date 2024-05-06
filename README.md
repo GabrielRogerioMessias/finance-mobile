@@ -1,4 +1,4 @@
-FINANCEAPP
+# FinanceApp
 
 Bem-vindo ao FinanceApp, sua solução móvel para gerenciar suas finanças pessoais de forma eficaz e segura. Com o FinanceApp, você pode registrar suas despesas, visualizar seu histórico financeiro, realizar login de forma segura e redefinir sua senha quando necessário.
 
@@ -23,4 +23,4 @@ Se você gostaria de contribuir para o desenvolvimento do FinanceApp, já iremos
 
 Suporte
 Se você encontrar algum problema ou tiver alguma dúvida sobre o FinanceApp, por favor, entre em contato conosco através de contato_financeapp@gmail.com Teremos o maior prazer em ajudar!
-# financeApp
+
