@@ -18,4 +18,6 @@ Comece a registrar suas despesas, visualize seu histórico financeiro e desfrute
 Documentação do Flutter
 A documentação do Flutter é uma fonte valiosa de informações para desenvolvedores. Para aprender mais sobre o Flutter e como desenvolver aplicativos móveis incríveis, confira a documentação oficial do Flutter(https://docs.flutter.dev/)
 
+Contribuição
+Se você gostaria de contribuir para o desenvolvimento do FinanceApp, já iremos liberar o passo a passo para você poder ajudar no projeto.
 # financeApp
