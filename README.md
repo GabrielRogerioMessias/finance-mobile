@@ -1,4 +1,5 @@
-FinanceApp
+FINANCEAPP
+
 Bem-vindo ao FinanceApp, sua solução móvel para gerenciar suas finanças pessoais de forma eficaz e segura. Com o FinanceApp, você pode registrar suas despesas, visualizar seu histórico financeiro, realizar login de forma segura e redefinir sua senha quando necessário.
 
 Funcionalidades Principais
@@ -14,9 +15,7 @@ Faça o download do aplicativo na loja de aplicativos do seu dispositivo móvel 
 Após a instalação, abra o aplicativo basta seguir as instruções na tela para criar uma conta ou fazer login, se já tiver uma.
 Comece a registrar suas despesas, visualize seu histórico financeiro e desfrute de uma gestão financeira mais eficiente!
 
+Documentação do Flutter
+A documentação do Flutter é uma fonte valiosa de informações para desenvolvedores. Para aprender mais sobre o Flutter e como desenvolver aplicativos móveis incríveis, confira a documentação oficial do Flutter(https://docs.flutter.dev/)
 
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development and a full API reference.
 # financeApp
