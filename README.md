@@ -11,8 +11,8 @@ Redefinição de Senha: Em caso de esquecimento da senha, você pode redefini-la
 Instalação
 Para começar a usar o FinanceApp, siga estas etapas simples:
 
-Faça o download do aplicativo na loja de aplicativos do seu dispositivo móvel quando a versão final já tiver disponível faremos deploy ou no Google Play Store para dispositivos Android ou App Store para dispositivos iOS.
-Após a instalação, abra o aplicativo basta seguir as instruções na tela para criar uma conta ou fazer login, se já tiver uma.
+Quando a versão final já tiver disponível faremos deploy ou no Google Play Store para dispositivos Android ou App Store para dispositivos iOS.
+Após a instalação, abra o aplicativo basta seguir as instruções na tela de maneira intuitiva para criar uma conta ou fazer login, se já tiver uma.
 Comece a registrar suas despesas, visualize seu histórico financeiro e desfrute de uma gestão financeira mais eficiente!
 
 Documentação do Flutter
