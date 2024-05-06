@@ -20,4 +20,7 @@ A documentação do Flutter é uma fonte valiosa de informações para desenvolv
 
 Contribuição
 Se você gostaria de contribuir para o desenvolvimento do FinanceApp, já iremos liberar o passo a passo para você poder ajudar no projeto.
+
+Suporte
+Se você encontrar algum problema ou tiver alguma dúvida sobre o FinanceApp, por favor, entre em contato conosco através de contato_financeapp@gmail.com Teremos o maior prazer em ajudar!
 # financeApp
