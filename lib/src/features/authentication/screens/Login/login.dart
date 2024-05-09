@@ -30,6 +30,14 @@ class _LoginScreenState extends State<LoginScreen> {
     String email = emailController.text;
     String password = passwordController.text;
 
+    bool emailExists = await DatabaseHelper.instance.checkIfEmailExist(email);
+    if (!emailExists) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Email não encontrado')),
+      );
+      return;
+    }
+
     final dbHelper = DatabaseHelper.instance;
     bool isAuthenticated = await dbHelper.authenticateUser(email, password);
 

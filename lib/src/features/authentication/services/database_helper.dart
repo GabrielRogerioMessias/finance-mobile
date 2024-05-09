@@ -1,3 +1,4 @@
+import 'package:finance_mobile/src/features/finance/models/transacao_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -14,10 +15,10 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'MyFinanceApp.db');
+    String path = join(await getDatabasesPath(), 'DatabaseFinance.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 3,
       onCreate: _createDatabase,
     );
   }
@@ -42,7 +43,6 @@ class DatabaseHelper {
         " descricao TEXT NOT NULL,"
         " FOREIGN KEY(userId) REFERENCES User(user_id),"
         " FOREIGN KEY(categoriaId) REFERENCES Categoria(categoria_id));");
-
   }
 
   // ----------------------------- METODOS DO USUARIO --------------------------------------
@@ -59,9 +59,16 @@ class DatabaseHelper {
   Future<bool> isEmailAlreadyInUse(String email) async {
     Database db = await instance.database;
     List<Map<String, dynamic>> result =
-    await db.query('User', where: 'email = ?', whereArgs: [email]);
+        await db.query('User', where: 'email = ?', whereArgs: [email]);
     return result.isNotEmpty;
   }
+
+  Future<bool> checkIfEmailExist(String email) async {
+    Database db = await instance.database;
+    List<Map<String, dynamic>> maps = await db.query('User', where: 'email =?', whereArgs: [email]);
+    return maps.isNotEmpty;
+  }
+
 
   //autenticação do usuário
   Future<bool> authenticateUser(String email, String password) async {
@@ -75,19 +82,65 @@ class DatabaseHelper {
   //Nova senha
   Future<void> resetPassword(String email, String newPassword) async {
     Database db = await instance.database;
-    await db.update('User', {'password': newPassword}, where: 'email = ?',
+    await db.update(
+      'User',
+      {'password': newPassword},
+      where: 'email = ?',
       whereArgs: [email],
     );
   }
 
+  //recuperar id e email do usuario
   Future<Map<String, dynamic>?> retrieveUserIdAndName(String email) async {
     Database db = await instance.database;
-    List<Map<String, dynamic>> result = await db.query(
-        'User', where: 'email =?', whereArgs: [email]);
+    List<Map<String, dynamic>> result =
+        await db.query('User', where: 'email =?', whereArgs: [email]);
     if (result.isNotEmpty) {
       return {'user_id': result.first['user_id'], 'name': result.first['name']};
     }
     return null;
   }
 
+  //insirir transacoes
+  Future<int> insertTransaction(Map<String, dynamic> transaction) async {
+    Database db = await instance.database;
+    return await db.insert(
+      'Transacao',
+      transaction,
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  //recuperar as transacoes
+  Future<List<Transacao>> getTransactions(int userId) async {
+    Database db = await instance.database;
+    List<Map<String, dynamic>> result = await db.query(
+      'Transacao',
+      where: 'userId =?',
+      whereArgs: [userId],
+    );
+
+    return result.map((map) => Transacao.fromMap(map)).toList();
+  }
+
+  //recuperar os dados de acordo com id do usuario
+  Future<List<Map<String, dynamic>>> getTransacoesByUserId(int userId) async {
+    Database db = await DatabaseHelper.instance.database;
+    List<Map<String, dynamic>> result = await db.query(
+      'Transacao',
+      where: 'userId =?',
+      whereArgs: [userId],
+    );
+    return result;
+  }
+
+  Future<void> deleteTransaction(int transacaoId) async {
+    Database db = await instance.database;
+    await db.delete(
+      'Transacao',
+      where: 'transacao_id =?',
+      whereArgs: [transacaoId],
+    );
+  }
 }
+

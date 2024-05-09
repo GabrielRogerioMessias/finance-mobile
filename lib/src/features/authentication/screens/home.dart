@@ -49,95 +49,128 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(left: 15, top: 25.0),
-                      child: Text(
-                        'Inicie sessão para um melhor controle de suas finanças',
-                        style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontSize: 16,
-                            color: Colors.white),
-                      ),
-                    ),
+                    Subtitle(),
                   ],
                 ),
               ),
               SizedBox(
                 height: 40.0,
               ),
-              Container(
-                padding: EdgeInsets.only(left: 30.0),
-                child: Center(
-                  child: Image(
-                    image: AssetImage(
-                      'assets/images/home_image.png',
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
-                child: Column(
-                  children: [
-                    AccessButton(
-                      textLabel: 'Acesse com email',
-                      iconData: Icons.email,
-                      actionButton: () {
-                        Navigator.pushNamed(context, LoginScreen.id);
-                      },
-                    ),
-                    SizedBox(
-                      height: 12.0,
-                    ),
-                    AccessButton(
-                      textLabel: 'Acesse com google',
-                      iconData: FontAwesomeIcons.google,
-                      actionButton: () => print('Acesse com google'),
-                    ),
-                    SizedBox(
-                      height: 12.0,
-                    ),
-                    AccessButton(
-                      textLabel: 'Acesse com facebook',
-                      iconData: FontAwesomeIcons.facebook,
-                      actionButton: () => print('Acessar com facebook'),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 25.0, top: 10.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Não tem conta?',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 15.0),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          GestureDetector(
-                            child: Text(
-                              'Fazer Cadastro',
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                color: Color(0xFF3CB6A9),
-                                decoration: TextDecoration.underline,
-                                decorationColor: Color(0xFF3CB6A9),
-                              ),
-                            ),
-                            onTap: () {
-                              Navigator.pushNamed(context, RegisterScreen.id);
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
+              HomeImage(),
+              AccessButtons(),
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AccessButtons extends StatelessWidget {
+  const AccessButtons({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.bottomCenter,
+      margin: EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
+      child: Column(
+        children: [
+          AccessButton(
+            textLabel: 'Acesse com email',
+            iconData: Icons.email,
+            actionButton: () {
+              Navigator.pushNamed(context, LoginScreen.id);
+            },
+          ),
+          SizedBox(
+            height: 12.0,
+          ),
+          AccessButton(
+            textLabel: 'Acesse com google',
+            iconData: FontAwesomeIcons.google,
+            actionButton: () => print('Acesse com google'),
+          ),
+          SizedBox(
+            height: 12.0,
+          ),
+          AccessButton(
+            textLabel: 'Acesse com facebook',
+            iconData: FontAwesomeIcons.facebook,
+            actionButton: () => print('Acessar com facebook'),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 25.0, top: 10.0),
+            child: Row(
+              children: [
+                Text(
+                  'Não tem conta?',
+                  style:
+                      TextStyle(color: Colors.white, fontSize: 15.0),
+                ),
+                SizedBox(
+                  width: 10.0,
+                ),
+                GestureDetector(
+                  child: Text(
+                    'Fazer Cadastro',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color: Color(0xFF3CB6A9),
+                      decoration: TextDecoration.underline,
+                      decorationColor: Color(0xFF3CB6A9),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, RegisterScreen.id);
+                  },
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class HomeImage extends StatelessWidget {
+  const HomeImage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 30.0),
+      child: Center(
+        child: Image(
+          image: AssetImage(
+            'assets/images/home_image.png',
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Subtitle extends StatelessWidget {
+  const Subtitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 15, top: 25.0),
+      child: Text(
+        'Inicie sessão para um melhor controle de suas finanças',
+        style: TextStyle(
+            fontFamily: 'Montserrat',
+            fontSize: 16,
+            color: Colors.white),
       ),
     );
   }
@@ -181,4 +214,3 @@ class AccessButton extends StatelessWidget {
     );
   }
 }
-// 227E74

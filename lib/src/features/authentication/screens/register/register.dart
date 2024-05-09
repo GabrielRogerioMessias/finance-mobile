@@ -16,6 +16,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final _formKey = GlobalKey<FormState>();
   //Controllers
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -28,6 +29,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   //metodo de registro
   void _handleRegister() async {
+
+    //Controllers
     String name = nameController.text;
     String email = emailController.text;
     String password = passwordController.text;
@@ -98,6 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 14.0),
                     child: Form(
+                      key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

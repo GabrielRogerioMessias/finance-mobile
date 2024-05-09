@@ -7,6 +7,7 @@ class UserIdProvider extends ChangeNotifier {
   int? get userId => _userId;
   String? get userName => _userName;
 
+
   void setUserIdAndName(int userId, String userName) {
     _userId = userId;
     _userName = userName;
