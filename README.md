@@ -1,17 +1,31 @@
-# finance_mobile
+# FinanceApp
 
-A new Flutter project.
+Bem-vindo ao FinanceApp, sua solução móvel para gerenciar suas finanças pessoais de forma eficaz e segura. Com o FinanceApp, você pode registrar suas despesas, visualizar seu histórico financeiro, realizar login de forma segura e redefinir sua senha quando necessário.
 
-## Getting Started
+Funcionalidades Principais
 
-This project is a starting point for a Flutter application.
+Registro de Despesas: Registre suas despesas diárias de forma rápida e simples, categorizando-as para melhor organização.
 
-A few resources to get you started if this is your first Flutter project:
+Visualização de Histórico Financeiro: Acesse facilmente seu histórico financeiro para monitorar seus gastos ao longo do tempo e identificar padrões de consumo.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Login Seguro: Proteja suas informações com um sistema de login seguro, garantindo que apenas você tenha acesso aos seus dados financeiros.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# financeApp
+Redefinição de Senha: Em caso de esquecimento da senha, você pode redefini-la facilmente através de um processo seguro e intuitivo.
+
+Instalação
+
+Para começar a usar o FinanceApp, siga estas etapas simples:
+
+Quando a versão final já tiver disponível faremos deploy ou no Google Play Store para dispositivos Android ou App Store para dispositivos iOS.
+Após a instalação, abra o aplicativo basta seguir as instruções na tela de maneira intuitiva para criar uma conta ou fazer login, se já tiver uma.
+Comece a registrar suas despesas, visualize seu histórico financeiro e desfrute de uma gestão financeira mais eficiente!
+
+Documentação
+A documentação do Flutter é uma fonte valiosa de informações para desenvolvedores. Para aprender mais sobre o Flutter e como desenvolver aplicativos móveis incríveis, confira a documentação oficial do Flutter(https://docs.flutter.dev/)
+
+Contribuição
+Se você gostaria de contribuir para o desenvolvimento do FinanceApp, já iremos liberar o passo a passo para você poder ajudar no projeto.
+
+Suporte
+Se você encontrar algum problema ou tiver alguma dúvida sobre o FinanceApp, por favor, entre em contato conosco através de contato_financeapp@gmail.com Teremos o maior prazer em ajudar!
+
