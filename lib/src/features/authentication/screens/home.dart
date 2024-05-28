@@ -2,7 +2,6 @@ import 'package:finance_mobile/src/constants/text_constants.dart';
 import 'package:finance_mobile/src/features/authentication/screens/Login/login.dart';
 import 'package:finance_mobile/src/features/authentication/screens/register/register.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -53,10 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 40.0,
-              ),
-              HomeImage(),
               AccessButtons(),
             ],
           ),
@@ -73,64 +68,57 @@ class AccessButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.bottomCenter,
-      margin: EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
-      child: Column(
-        children: [
-          AccessButton(
-            textLabel: 'Acesse com email',
-            iconData: Icons.email,
-            actionButton: () {
-              Navigator.pushNamed(context, LoginScreen.id);
-            },
-          ),
-          SizedBox(
-            height: 12.0,
-          ),
-          AccessButton(
-            textLabel: 'Acesse com google',
-            iconData: FontAwesomeIcons.google,
-            actionButton: () => print('Acesse com google'),
-          ),
-          SizedBox(
-            height: 12.0,
-          ),
-          AccessButton(
-            textLabel: 'Acesse com facebook',
-            iconData: FontAwesomeIcons.facebook,
-            actionButton: () => print('Acessar com facebook'),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 25.0, top: 10.0),
-            child: Row(
-              children: [
-                Text(
-                  'Não tem conta?',
-                  style:
-                      TextStyle(color: Colors.white, fontSize: 15.0),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                GestureDetector(
-                  child: Text(
-                    'Fazer Cadastro',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      color: Color(0xFF3CB6A9),
-                      decoration: TextDecoration.underline,
-                      decorationColor: Color(0xFF3CB6A9),
+    double alturaElementosAcima = 250;
+    double alturaRestante =
+        MediaQuery.of(context).size.height - alturaElementosAcima;
+
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: alturaRestante),
+        child: Padding(
+          padding: EdgeInsets.all(40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              HomeImage(),
+              AccessButton(
+                textLabel: 'Acesse com email',
+                iconData: Icons.email,
+                actionButton: () {
+                  Navigator.pushNamed(context, LoginScreen.id);
+                },
+              ),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Não tem conta?',
+                      style: TextStyle(color: Colors.white, fontSize: 15.0),
                     ),
-                  ),
-                  onTap: () {
-                    Navigator.pushNamed(context, RegisterScreen.id);
-                  },
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    GestureDetector(
+                      child: Text(
+                        'Fazer Cadastro',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          color: Color(0xFF3CB6A9),
+                          decoration: TextDecoration.underline,
+                          decorationColor: Color(0xFF3CB6A9),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, RegisterScreen.id);
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
-        ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -144,7 +132,7 @@ class HomeImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 30.0),
+      padding: EdgeInsets.only(left: 40.0),
       child: Center(
         child: Image(
           image: AssetImage(
@@ -168,9 +156,7 @@ class Subtitle extends StatelessWidget {
       child: Text(
         'Inicie sessão para um melhor controle de suas finanças',
         style: TextStyle(
-            fontFamily: 'Montserrat',
-            fontSize: 16,
-            color: Colors.white),
+            fontFamily: 'Montserrat', fontSize: 16, color: Colors.white),
       ),
     );
   }
@@ -202,13 +188,13 @@ class AccessButton extends StatelessWidget {
             iconData,
             color: Color(0xFF373737),
           ),
-          SizedBox(
-            width: 30.0,
-          ),
-          Text(
+          Expanded(
+              child: Center(
+                  child: Text(
             textLabel,
-            style: TextStyle(fontSize: 15, color: Color(0xFF373737)),
-          )
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, color: Color(0xFF373737)),
+          )))
         ],
       ),
     );

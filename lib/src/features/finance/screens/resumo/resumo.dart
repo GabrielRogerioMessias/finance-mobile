@@ -1,6 +1,5 @@
 import 'package:finance_mobile/src/features/finance/screens/cadastro/cadastro.dart';
 import 'package:finance_mobile/src/features/finance/screens/finance_home/finance_home.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ResumoScreen extends StatefulWidget {
@@ -95,5 +94,3 @@ class NavigationBar extends StatelessWidget {
     );
   }
 }
-
-

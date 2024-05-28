@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 
 class AppColors {
@@ -22,7 +20,6 @@ const kBoxDecorationGradient = BoxDecoration(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter),
 );
-
 
 const kBoxDecorationInputText = BoxDecoration(
   color: Color(0xFF298C82),

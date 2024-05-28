@@ -1,9 +1,7 @@
 import 'package:finance_mobile/src/constants/app_colors.dart';
 import 'package:finance_mobile/src/features/authentication/screens/home.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 
 class SplashScreen extends StatefulWidget {
   static const String id = 'splash_screen';
@@ -22,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen>
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) =>  HomeScreen(),
+          builder: (_) => HomeScreen(),
         ),
       );
     });

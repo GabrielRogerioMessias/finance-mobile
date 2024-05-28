@@ -3,17 +3,16 @@ import 'package:finance_mobile/src/constants/text_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RememberMe extends StatefulWidget {
-
   @override
   State<RememberMe> createState() => _RememberMeState();
 }
 
 class _RememberMeState extends State<RememberMe> {
-
   bool _isChecked = false;
 
   @override
   void initState() {
+    super.initState();
     super.setState(() {
       _loadRememberMePreference();
     });
@@ -56,10 +55,7 @@ class _RememberMeState extends State<RememberMe> {
               },
             ),
           ),
-          Text(
-              'Lembre-me',
-              style: kTextLabel
-          ),
+          Text('Lembre-me', style: kTextLabel),
         ],
       ),
     );
