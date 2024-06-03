@@ -4,17 +4,21 @@ import 'package:finance_mobile/src/features/authentication/screens/resetPassword
 import 'package:finance_mobile/src/features/authentication/screens/splash/splash_screen.dart';
 import 'package:finance_mobile/src/features/finance/screens/cadastro/cadastro.dart';
 import 'package:finance_mobile/src/features/finance/screens/finance_home/finance_home.dart';
-import 'package:finance_mobile/src/features/finance/screens/resumo/resumo.dart';
+import 'package:finance_mobile/src/features/provider/screen_provider.dart';
 import 'package:finance_mobile/src/features/provider/user_id_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserIdProvider(),
-    child: const MyApp(),
-    ));
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserIdProvider()),
+        ChangeNotifierProvider(create: (context) => ScreenProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -38,7 +42,6 @@ class _MyAppState extends State<MyApp> {
         ResetPasswordScreen.id: (context) => ResetPasswordScreen(),
         FinanceScreen.id: (context) => FinanceScreen(),
         CadastroScreen.id: (context) => CadastroScreen(),
-        ResumoScreen.id: (context) => ResumoScreen(),
       },
     );
   }

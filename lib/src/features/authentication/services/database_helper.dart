@@ -15,10 +15,10 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'DatabaseFinance.db');
+    String path = join(await getDatabasesPath(), 'FinanceDB.db');
     return await openDatabase(
       path,
-      version: 3,
+      version: 4,
       onCreate: _createDatabase,
     );
   }
@@ -41,6 +41,7 @@ class DatabaseHelper {
         " data_entrada DATE,"
         " valor_entrada REAL,"
         " descricao TEXT NOT NULL,"
+        " tipo_transacao BOOLEAN,"
         " FOREIGN KEY(userId) REFERENCES User(user_id),"
         " FOREIGN KEY(categoriaId) REFERENCES Categoria(categoria_id));");
   }
@@ -65,10 +66,10 @@ class DatabaseHelper {
 
   Future<bool> checkIfEmailExist(String email) async {
     Database db = await instance.database;
-    List<Map<String, dynamic>> maps = await db.query('User', where: 'email =?', whereArgs: [email]);
+    List<Map<String, dynamic>> maps =
+        await db.query('User', where: 'email =?', whereArgs: [email]);
     return maps.isNotEmpty;
   }
-
 
   //autenticação do usuário
   Future<bool> authenticateUser(String email, String password) async {
@@ -99,6 +100,12 @@ class DatabaseHelper {
       return {'user_id': result.first['user_id'], 'name': result.first['name']};
     }
     return null;
+  }
+
+  //fazer logout da conta
+  Future<void> logoutUser(String email) async {
+    Database db = await instance.database;
+    await db.delete('User', where: 'email =?', whereArgs: [email]);
   }
 
   //insirir transacoes
@@ -134,6 +141,7 @@ class DatabaseHelper {
     return result;
   }
 
+  //deletar transacoes
   Future<void> deleteTransaction(int transacaoId) async {
     Database db = await instance.database;
     await db.delete(
@@ -142,5 +150,16 @@ class DatabaseHelper {
       whereArgs: [transacaoId],
     );
   }
-}
 
+  //editar transacoes
+  Future<int> updateTransaction(Map<String, dynamic> transaction) async {
+    Database db = await instance.database;
+    int id = transaction['transacao_id'];
+    return await db.update(
+      'Transacao',
+      transaction,
+      where: 'transacao_id = ?',
+      whereArgs: [id],
+    );
+  }
+}

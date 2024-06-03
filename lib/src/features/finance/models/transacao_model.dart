@@ -5,6 +5,7 @@ class Transacao {
   final String dataEntrada;
   final double valorEntrada;
   final String descricao;
+  final bool tipoTransacao;
 
   Transacao({
     required this.transacaoId,
@@ -13,7 +14,9 @@ class Transacao {
     required this.dataEntrada,
     required this.valorEntrada,
     required this.descricao,
+    required this.tipoTransacao,
   });
+
 
   factory Transacao.fromMap(Map<String, dynamic> map) {
     if (map['transacao_id'] is int) {
@@ -24,6 +27,7 @@ class Transacao {
         dataEntrada: map['data_entrada'] as String,
         valorEntrada: map['valor_entrada'] as double,
         descricao: map['descricao'] as String,
+        tipoTransacao: map['tipo_transacao'] == 1,
       );
     } else {
       throw Exception('Erro na conversão de dados da transação');
